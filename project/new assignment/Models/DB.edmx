@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AssignmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="finalorder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Phone_number" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Party_date" Type="date" Nullable="false" />
+          <Property Name="Party_time" Type="time" Precision="7" Nullable="false" />
+          <Property Name="Total_price" Type="money" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Pid" Type="varchar" MaxLength="10" />
+          <Property Name="Food" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Party">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="200" />
+          <Property Name="PartyName" Type="varchar" MaxLength="30" />
+          <Property Name="Decoration" Type="varchar" MaxLength="100" />
+          <Property Name="image" Type="varchar" MaxLength="100" />
+          <Property Name="Price_Per_Guest" Type="money" />
+        </EntityType>
+        <EntityType Name="Ser">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Pid" Type="varchar" MaxLength="10" />
+          <Property Name="Include_services" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK_type">
+          <End Role="Party" Type="Self.Party" Multiplicity="0..1" />
+          <End Role="Menu" Type="Self.Menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Menu">
+              <PropertyRef Name="Pid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_type1">
+          <End Role="Party" Type="Self.Party" Multiplicity="0..1" />
+          <End Role="Ser" Type="Self.Ser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Ser">
+              <PropertyRef Name="Pid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AssignmentModelStoreContainer">
+          <EntitySet Name="finalorder" EntityType="Self.finalorder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Party" EntityType="Self.Party" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ser" EntityType="Self.Ser" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_type" Association="Self.FK_type">
+            <End Role="Party" EntitySet="Party" />
+            <End Role="Menu" EntitySet="Menu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_type1" Association="Self.FK_type1">
+            <End Role="Party" EntitySet="Party" />
+            <End Role="Ser" EntitySet="Ser" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AssignmentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="AssignmentEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Menus" EntityType="AssignmentModel.Menu" />
+          <EntitySet Name="Parties" EntityType="AssignmentModel.Party" />
+          <EntitySet Name="Sers" EntityType="AssignmentModel.Ser" />
+          <AssociationSet Name="FK_type" Association="AssignmentModel.FK_type">
+            <End Role="Party" EntitySet="Parties" />
+            <End Role="Menu" EntitySet="Menus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_type1" Association="AssignmentModel.FK_type1">
+            <End Role="Party" EntitySet="Parties" />
+            <End Role="Ser" EntitySet="Sers" />
+          </AssociationSet>
+          <EntitySet Name="finalorders" EntityType="AssignmentModel.finalorder" />
+        </EntityContainer>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Pid" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Food" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Party" Relationship="AssignmentModel.FK_type" FromRole="Menu" ToRole="Party" />
+        </EntityType>
+        <EntityType Name="Party">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="PartyName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Decoration" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="image" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Price_Per_Guest" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Menus" Relationship="AssignmentModel.FK_type" FromRole="Party" ToRole="Menu" />
+          <NavigationProperty Name="Sers" Relationship="AssignmentModel.FK_type1" FromRole="Party" ToRole="Ser" />
+        </EntityType>
+        <EntityType Name="Ser">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Pid" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Include_services" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Party" Relationship="AssignmentModel.FK_type1" FromRole="Ser" ToRole="Party" />
+        </EntityType>
+        <Association Name="FK_type">
+          <End Type="AssignmentModel.Party" Role="Party" Multiplicity="0..1" />
+          <End Type="AssignmentModel.Menu" Role="Menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Menu">
+              <PropertyRef Name="Pid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_type1">
+          <End Type="AssignmentModel.Party" Role="Party" Multiplicity="0..1" />
+          <End Type="AssignmentModel.Ser" Role="Ser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Ser">
+              <PropertyRef Name="Pid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="finalorder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Phone_number" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Party_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Party_time" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="Total_price" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AssignmentModelStoreContainer" CdmEntityContainer="AssignmentEntities">
+          <EntitySetMapping Name="Menus">
+            <EntityTypeMapping TypeName="AssignmentModel.Menu">
+              <MappingFragment StoreEntitySet="Menu">
+                <ScalarProperty Name="Food" ColumnName="Food" />
+                <ScalarProperty Name="Pid" ColumnName="Pid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Parties">
+            <EntityTypeMapping TypeName="AssignmentModel.Party">
+              <MappingFragment StoreEntitySet="Party">
+                <ScalarProperty Name="Price_Per_Guest" ColumnName="Price_Per_Guest" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="Decoration" ColumnName="Decoration" />
+                <ScalarProperty Name="PartyName" ColumnName="PartyName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sers">
+            <EntityTypeMapping TypeName="AssignmentModel.Ser">
+              <MappingFragment StoreEntitySet="Ser">
+                <ScalarProperty Name="Include_services" ColumnName="Include_services" />
+                <ScalarProperty Name="Pid" ColumnName="Pid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="finalorders">
+            <EntityTypeMapping TypeName="AssignmentModel.finalorder">
+              <MappingFragment StoreEntitySet="finalorder">
+                <ScalarProperty Name="Total_price" ColumnName="Total_price" />
+                <ScalarProperty Name="Party_time" ColumnName="Party_time" />
+                <ScalarProperty Name="Party_date" ColumnName="Party_date" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone_number" ColumnName="Phone_number" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

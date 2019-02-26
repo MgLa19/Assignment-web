@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AssignmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="finalorder">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Phone_number" Type="varchar" MaxLength="12" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Address" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Party_date" Type="date" Nullable="false" />
+    <Property Name="Party_time" Type="time" Precision="7" Nullable="false" />
+    <Property Name="Total_price" Type="money" />
+  </EntityType>
+  <EntityType Name="Menu">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Pid" Type="varchar" MaxLength="10" />
+    <Property Name="Food" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Party">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="200" />
+    <Property Name="PartyName" Type="varchar" MaxLength="30" />
+    <Property Name="Decoration" Type="varchar" MaxLength="100" />
+    <Property Name="image" Type="varchar" MaxLength="100" />
+    <Property Name="Price_Per_Guest" Type="money" />
+  </EntityType>
+  <EntityType Name="Ser">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Pid" Type="varchar" MaxLength="10" />
+    <Property Name="Include_services" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <Association Name="FK_type">
+    <End Role="Party" Type="Self.Party" Multiplicity="0..1" />
+    <End Role="Menu" Type="Self.Menu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Party">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Menu">
+        <PropertyRef Name="Pid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_type1">
+    <End Role="Party" Type="Self.Party" Multiplicity="0..1" />
+    <End Role="Ser" Type="Self.Ser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Party">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Ser">
+        <PropertyRef Name="Pid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AssignmentModelStoreContainer">
+    <EntitySet Name="finalorder" EntityType="Self.finalorder" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Party" EntityType="Self.Party" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ser" EntityType="Self.Ser" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_type" Association="Self.FK_type">
+      <End Role="Party" EntitySet="Party" />
+      <End Role="Menu" EntitySet="Menu" />
+    </AssociationSet>
+    <AssociationSet Name="FK_type1" Association="Self.FK_type1">
+      <End Role="Party" EntitySet="Party" />
+      <End Role="Ser" EntitySet="Ser" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

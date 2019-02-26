@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="AssignmentModelStoreContainer" CdmEntityContainer="AssignmentEntities">
+    <EntitySetMapping Name="Menus">
+      <EntityTypeMapping TypeName="AssignmentModel.Menu">
+        <MappingFragment StoreEntitySet="Menu">
+          <ScalarProperty Name="Food" ColumnName="Food" />
+          <ScalarProperty Name="Pid" ColumnName="Pid" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Parties">
+      <EntityTypeMapping TypeName="AssignmentModel.Party">
+        <MappingFragment StoreEntitySet="Party">
+          <ScalarProperty Name="Price_Per_Guest" ColumnName="Price_Per_Guest" />
+          <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="Decoration" ColumnName="Decoration" />
+          <ScalarProperty Name="PartyName" ColumnName="PartyName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sers">
+      <EntityTypeMapping TypeName="AssignmentModel.Ser">
+        <MappingFragment StoreEntitySet="Ser">
+          <ScalarProperty Name="Include_services" ColumnName="Include_services" />
+          <ScalarProperty Name="Pid" ColumnName="Pid" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="finalorders">
+      <EntityTypeMapping TypeName="AssignmentModel.finalorder">
+        <MappingFragment StoreEntitySet="finalorder">
+          <ScalarProperty Name="Total_price" ColumnName="Total_price" />
+          <ScalarProperty Name="Party_time" ColumnName="Party_time" />
+          <ScalarProperty Name="Party_date" ColumnName="Party_date" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone_number" ColumnName="Phone_number" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

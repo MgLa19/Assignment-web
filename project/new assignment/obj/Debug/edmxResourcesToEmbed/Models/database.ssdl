@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AssignmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Menu">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Pid" Type="varchar" MaxLength="10" />
+    <Property Name="Food" Type="varchar" MaxLength="30" />
+    <Property Name="Include_services" Type="varchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="Party">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="PartyName" Type="varchar" MaxLength="30" />
+    <Property Name="Decoration" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <Association Name="FK_type">
+    <End Role="Party" Type="Self.Party" Multiplicity="0..1" />
+    <End Role="Menu" Type="Self.Menu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Party">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Menu">
+        <PropertyRef Name="Pid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AssignmentModelStoreContainer">
+    <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Party" EntityType="Self.Party" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_type" Association="Self.FK_type">
+      <End Role="Party" EntitySet="Party" />
+      <End Role="Menu" EntitySet="Menu" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,145 @@
+﻿@model new_assignment.Models.Party
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<link href="~/Content/creative.css" rel="stylesheet">
+
+<h2 align="center" style="padding-top:20px">Details</h2>
+<hr />
+<div>
+    <h4 align="center">Party</h4>
+
+    <table border="0" align="center" class="table" style="width:800px">
+        <tr>
+            <td colspan="2" width="300" align="center">
+                <img src="~/Content/image/@Url.Content(Model.image)" height="300" width="300" />
+            </td>
+            <td>
+                <table border="0" class="table">
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Description)
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.PartyName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.PartyName)
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.Decoration)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Decoration)
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Menu</td>
+                        <td>
+                            @{ string foodies = "";}
+                            @foreach (var food in Model.Menus)
+                            {
+                                foodies += ", " + food.Food;
+                            }
+                            <label>@foodies.Substring(1)</label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Service</td>
+                        <td>
+                            @{ string ser = "";}
+                            @foreach (var serv in Model.Sers)
+                            {
+                                ser += ", " + serv.Include_services;
+                            }
+                            <label>@ser.Substring(1)</label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.Price_Per_Guest)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Price_Per_Guest)
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Number of Guests
+                        </td>
+                        <td>
+                            <select id="dd" name="dd" class="dropdown-header">
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="40">40</option>
+                                <option value="50">50</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+
+    </table>
+</div>
+<div align="center" style="padding-top:0">
+    <div>@Html.ActionLink("Order Package", "Create", "finalorders", new { price = Model.Price_Per_Guest }, new { id = "order", @class= "btn btn-default btn-xl sr-button" })
+    @Html.ActionLink("Back to List", "Index",null,new {@class= "btn btn-default btn-xl sr-button" })</div>
+</div>
+<script>
+    $(function () {
+
+        $(document).on("click", "#order", function (e) {
+
+            //e.preventDefault();  // Stop the normal link click behaviour
+
+            var currentUrl = $(this).attr("href");  // Get the url
+            
+            // Append the quantity value to query string
+            var newUrl = currentUrl + "&guest=" + $("#dd").val();
+            
+            $(this).attr("href", newUrl);
+        });
+    });
+    
+    //function gg() {
+    //    alert('gg');
+    //    var currentUrl = $(this).attr("href");
+    //    alert(currentUrl);
+    //    var newUrl = currentUrl + "&guest=" + $("#dd").val();
+    //    window.location.href = newUrl;
+    //}
+        
+  
+
+    
+</script>

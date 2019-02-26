@@ -1,0 +1,64 @@
+﻿@model IEnumerable<new_assignment.Models.Party>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<link href="~/Content/creative.css" rel="stylesheet">
+
+<h2 align="center" style="padding-top:40px">Our Packages and Services</h2>
+
+
+
+<table class="table" align="center" style="width:800px" border="0">
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td width="300">
+                <img src="~/Content/image/@Url.Content(item.image)" height="300" width="400" />
+            </td>
+            <td>
+                <table class="table" border="0" align="left" height="300">
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.PartyName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PartyName)
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.Decoration)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Decoration)
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td></td>
+                        <td>
+                            <div>@Html.ActionLink("Details", "Details", new { id = item.id }, new { @class = "btn btn-default btn-xl sr-button" })</div>
+                        </td>
+                    </tr>
+                    <br />
+                </table>
+            </td>
+        </tr>
+
+
+    }
+
+</table>

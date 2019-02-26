@@ -1,0 +1,196 @@
+﻿@{
+    ViewBag.Title = "Location";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title></title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
+
+
+    <style>
+        body {
+            margin: 0;
+            padding-top: 70px;
+            padding-left: 20%;
+            padding-right: 20%;
+        }
+
+        #map {
+            position: center;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .marker {
+            background-image: url(../../Content/image/beericon.png);
+            background-size: contain;
+            width: 50px;
+            height: 50px;
+            border-radius: 80%;
+            cursor: pointer;
+            background-color: ActiveBorder;
+        }
+
+        .mapboxgl-popup {
+            max-width: 200px;
+            color: hotpink;
+        }
+
+        .mapboxgl-popup-content {
+            text-align: center;
+            font-family: 'Open Sans', sans-serif;
+            background-color: aliceblue;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+
+    
+    <h1 style="padding-top:5px">Party events venues in Yangon</h1>
+    <table border="0" width="1200" height="500" align="right" class="table">
+        <tr>
+            <td width="900px">
+                <div id='map'></div>
+                <div id='menu'>
+                    <input id='basic' type='radio' name='rtoggle' value='basic' checked='checked'>
+                    <label for='basic'>basic</label>
+                    <input id='streets' type='radio' name='rtoggle' value='streets'>
+                    <label for='streets'>streets</label>
+                    <input id='bright' type='radio' name='rtoggle' value='bright'>
+                    <label for='bright'>bright</label>
+                    <input id='light' type='radio' name='rtoggle' value='light'>
+                    <label for='light'>light</label>
+                    <input id='satellite' type='radio' name='rtoggle' value='satellite'>
+                    <label for='satellite'>satellite</label>
+                </div>
+            </td>
+            <td width="300px" style="vertical-align:top">
+                <table border="0" style="width:100%" class="table">
+                    <tr>
+                        <td>
+                            <h3>Single's Night</h3>
+                            <label>Place: Cuba</label><br />
+                            <label>Time: 7pm</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h3>Cocktail Party</h3>
+                            <label>Place: Yangon Yangon Rooftop Bar</label><br />
+                            <label>Time: 4pm</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h3>Green HBeer Buy one Get one</h3>
+                            <label>Place: Harry's Bar Junction Square</label><br />
+                            <label>Time: 4pm</label>
+                        </td>
+                    </tr>
+
+                </table>
+
+            </td>
+        </tr>
+    </table>
+
+
+    <script>
+
+        mapboxgl.accessToken = 'pk.eyJ1IjoiaGFrMjYxMSIsImEiOiJjanJvcGkwYzQxNXhhNDNuemVicWRzYWQ2In0.X3Y-UiNyC09-cUq50BbbAw';
+
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/basic-v9',
+            center: [96.1580, 16.8143],
+            zoom: 11
+        });
+
+        var geojson = {
+            type: 'FeatureCollection',
+            features: [
+
+                {
+                    type: 'Feature',
+                    geometry: {
+                        type: 'Place',
+                        coordinates: [96.13432, 16.80284]
+                    },
+                    properties: {
+                        title: "Single's Night",
+                        place: "Cuba",
+                        time: "7pm",
+                        city: "Yangon"
+                    }
+                },
+
+                {
+                    type: 'Feature',
+                    geometry: {
+                        type: 'Place',
+                        coordinates: [96.159417, 16.779278]
+                    },
+                    properties: {
+                        title: "Cocktail Party",
+                        place: "Yangon Yangon Rooftop bar",
+                        time: "4pm",
+                        city: "Yangon"
+                    }
+                },
+
+                {
+                    type: 'Feature',
+                    geometry: {
+                        type: 'Place',
+                        coordinates: [96.130469, 16.817253]
+                    },
+                    properties: {
+                        title: "Green HBeer Buy one Get one",
+                        place: "Harry's Bar Junction Square",
+                        time: "4pm",
+                        city: "Yangon"
+                    }
+                }]
+        };
+
+        var layerList = document.getElementById('menu');
+        var inputs = layerList.getElementsByTagName('input');
+
+        function switchLayer(layer) {
+            var layerId = layer.target.id;
+            map.setStyle('mapbox://styles/mapbox/' + layerId + '-v9');
+        }
+
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].onclick = switchLayer;
+        }
+
+        // add markers to map
+        geojson.features.forEach(function (marker) {
+
+            // create a HTML element for each feature
+            var el = document.createElement('div');
+            el.className = 'marker';
+
+            // make a marker for each feature and add to the map
+            new mapboxgl.Marker(el)
+                .setLngLat(marker.geometry.coordinates)
+                .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
+                    .setHTML('<h4>' + marker.properties.title + '</h4><p>' + marker.properties.place + '<p>' + marker.properties.time + '<p>' + marker.properties.city))
+                .addTo(map);
+        });
+
+
+    </script>
+
+</body>
+</html>

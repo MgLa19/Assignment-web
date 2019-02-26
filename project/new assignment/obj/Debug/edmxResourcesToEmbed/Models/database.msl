@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="AssignmentModelStoreContainer" CdmEntityContainer="AssignmentEntities1">
+    <EntitySetMapping Name="Menus">
+      <EntityTypeMapping TypeName="AssignmentModel.Menu">
+        <MappingFragment StoreEntitySet="Menu">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Pid" ColumnName="Pid" />
+          <ScalarProperty Name="Food" ColumnName="Food" />
+          <ScalarProperty Name="Include_services" ColumnName="Include_services" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Parties">
+      <EntityTypeMapping TypeName="AssignmentModel.Party">
+        <MappingFragment StoreEntitySet="Party">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="PartyName" ColumnName="PartyName" />
+          <ScalarProperty Name="Decoration" ColumnName="Decoration" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
